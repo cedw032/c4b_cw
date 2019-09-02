@@ -2,7 +2,7 @@
   "name": "c4b_cw",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://still-falls-37601.herokuapp.com/",
+  "homepage": "https://cedw032.github.io/c4b_cw/build/",
   "dependencies": {
     "classnames": "^2.2.6",
     "moment": "^2.24.0",
