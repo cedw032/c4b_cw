@@ -2,7 +2,7 @@ import {useState, useRef} from 'react';
 import moment from 'moment';
 import useSocket from './useSocket';
 
-const useMessenger = () => {
+const useMessenger = id => {
 
 	const [log, setLog] = useState([]);
 	const logRef = useRef();
@@ -10,10 +10,7 @@ const useMessenger = () => {
 
 	const addToLog = message => setLog([
 		...logRef.current, 
-		{
-			...message,
-			at: moment(message.at),
-		},
+		message,
 	]);
 
 	const socket = useSocket({
@@ -22,14 +19,12 @@ const useMessenger = () => {
 
 	const sendMessage = content => {
 		
-		const message = {
+		addToLog({
+			from: id,
 			at: moment().toISOString(),
-			from: 'me',
 			content,
-		}
-
-		addToLog(message);
-		socket.emit('message', message)
+		});
+		socket.emit('message', {content})
 	};
 
 	return [log, sendMessage]

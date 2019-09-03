@@ -1,16 +1,17 @@
 import React, {useState} from 'react';
 import cx from 'classnames';
 import useMessenger from '../hooks/useMessenger';
+import moment from 'moment';
 
-const ChatBox = () => {
+const ChatBox = ({id}) => {
 
-	const [log, sendMessage] = useMessenger();
+	const [log, sendMessage] = useMessenger(id);
 
 	const [input, setInput] = useState('');
 
 	const getMessageClassname = message => cx(
 		'message',
-		message.from === 'me' ? 'self' : 'peer',
+		message.from === id ? 'self' : 'peer',
 	);
 
 	return (
@@ -20,8 +21,8 @@ const ChatBox = () => {
 					<div 
 						key={i}
 						className={getMessageClassname(message)}>
-						<span>{message.at.format('h:mma')} - </span>
-						<span>{message.from}: </span>
+						<span>{moment(message.at).format('h:mma')} - </span>
+						<span>{console.log(message.from) || message.from}: </span>
 						<span>{message.content}</span>
 					</div>
 				)}
